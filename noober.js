@@ -68,6 +68,60 @@ function renderRides(ridesArray) {
 }
 
 window.addEventListener('DOMContentLoaded', function() {
-  // YOUR CODE
-})
+  
+    // 1. Add an event listener to the "All Rides" button, so that when it is clicked, there is some output in the console to indicate which button was clicked
+  
+    let allButton = document.querySelector('#all-filter')
+    allButton.addEventListener('click', async function(event) {
+      event.preventDefault() 
+      console.log('allButton was clicked')   
 
+    // 2. when the the event occurs, i.e. the button is clicked:
+    //    2.1. request the ride data from our "API" from https://kiei451.com/api/rides.json 
+   
+    let url = 'https://kiei451.com/api/rides.json'
+    let response = await fetch(url)
+    let json = await response.json()
+    console.log(json)
+
+    //    2.2. pass the array of rides to the provided renderRides() function to display all the rides (same as they appeared at the end of last week's assignment)
+    renderRides(json)
+    })
+
+
+    // 3.Add an event listener to the "Noober Purple" button, so that when it is clicked, there is some output in the console to indicate which button was clicked.
+    
+    let purpleButton = document.querySelector('#noober-purple-filter')
+    purpleButton.addEventListener('click', async function(event) {
+      event.preventDefault() 
+      console.log('purpleButton was clicked')
+
+    // 4. when the the event occurs, i.e. the purple button is clicked:
+    //    4.1. request the ride data from our "API" from https://kiei451.com/api/rides.json 
+    let url = 'https://kiei451.com/api/rides.json'
+    let response = await fetch(url)
+    let json = await response.json()
+    console.log(json)
+    
+    //    4.2. create a new empty array 
+    var newArray = []
+
+    //    4.3. loop through the rides and for each ride, use the provided levelOfService() function to determine the service level, and use newArray.push(ride) to add "Noober Purple" rides into the new array 
+    
+    for (let i = 0; i < json.length; i++) {
+      let ride = json[i] 
+      levelOfService(ride)
+      newArray.push(ride)
+      // console.log(ride)
+
+    //    4.4. lastly, pass the new array of filtered rides to the renderRides() function 
+      renderRides(newArray)
+
+
+    }
+    // 5. Repeat steps 3 & 4 for the other 3 level of service button filters
+
+    })
+  
+
+})
