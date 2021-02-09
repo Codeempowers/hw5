@@ -97,7 +97,7 @@ window.addEventListener('DOMContentLoaded', function() {
     let purpleButton = document.querySelector('#noober-purple-filter')
     purpleButton.addEventListener('click', async function(event) {
       event.preventDefault() 
-      console.log('purpleButton was clicked ')
+      console.log('purpleButton was clicked')
 
           // Clear data in html if already present
           let filterReset = document.querySelector('.rides').innerHTML = ''
