@@ -67,61 +67,144 @@ function renderRides(ridesArray) {
   }
 }
 
+
+// MY CODE
 window.addEventListener('DOMContentLoaded', function() {
   
-    // 1. Add an event listener to the "All Rides" button, so that when it is clicked, there is some output in the console to indicate which button was clicked
-  
+    // 1. Listener "All Rides" button  
     let allButton = document.querySelector('#all-filter')
     allButton.addEventListener('click', async function(event) {
-      event.preventDefault() 
-      console.log('allButton was clicked')   
+          event.preventDefault() 
+          console.log('allButton was clicked')   
+        
+          // Resets data in case some other button was clicked before
+          let filterReset = document.querySelector('.rides').innerHTML = ''
 
-    // 2. when the the event occurs, i.e. the button is clicked:
-    //    2.1. request the ride data from our "API" from https://kiei451.com/api/rides.json 
-   
-    let url = 'https://kiei451.com/api/rides.json'
-    let response = await fetch(url)
-    let json = await response.json()
-    console.log(json)
+          // 2. when the the event occurs, i.e. the button is clicked:
+          //    2.1. request the ride data from our "API" from https://kiei451.com/api/rides.json 
+        
+          let url = 'https://kiei451.com/api/rides.json'
+          let response = await fetch(url)
+          let json = await response.json()
+          // console.log(json)
 
-    //    2.2. pass the array of rides to the provided renderRides() function to display all the rides (same as they appeared at the end of last week's assignment)
-    renderRides(json)
+          //    2.2. pass the array of rides to the provided renderRides() function to display all the rides (same as they appeared at the end of last week's assignment)
+          renderRides(json)
     })
 
 
-    // 3.Add an event listener to the "Noober Purple" button, so that when it is clicked, there is some output in the console to indicate which button was clicked.
-    
+    // 3.Listener "Noober Purple" button
     let purpleButton = document.querySelector('#noober-purple-filter')
     purpleButton.addEventListener('click', async function(event) {
       event.preventDefault() 
       console.log('purpleButton was clicked')
 
-    // 4. when the the event occurs, i.e. the purple button is clicked:
-    //    4.1. request the ride data from our "API" from https://kiei451.com/api/rides.json 
-    let url = 'https://kiei451.com/api/rides.json'
-    let response = await fetch(url)
-    let json = await response.json()
-    console.log(json)
+          // Clear data in html if already present
+          let filterReset = document.querySelector('.rides').innerHTML = ''
+
+          // 4. when the the event occurs, i.e. the purple button is clicked:
+          //    4.1. request the ride data from our "API" from https://kiei451.com/api/rides.json 
+          let url = 'https://kiei451.com/api/rides.json'
+          let response = await fetch(url)
+          let json = await response.json()
+      
+          //    4.2. create a new empty purple array 
+          var purpleArray = []
+          //    4.3. loop through the rides  
+          for (let i = 0; i < json.length; i++) {
+            let ride = json[i] 
+            let b = levelOfService(ride)
+                if(b=="Noober Purple"){
+                purpleArray.push(ride)
+                // 4.4. lastly, pass the purple array of filtered rides to the renderRides() function 
+                renderRides(purpleArray)
+                }
+          }
+     })
+
+
+     // 5.Listener "Noober Pool" button
+    let poolButton = document.querySelector('#noober-pool-filter')
+    poolButton.addEventListener('click', async function(event) {
+      event.preventDefault() 
+      console.log('poolButton was clicked')
+
+          // Clear data in html if already present
+          let filterReset = document.querySelector('.rides').innerHTML = ''
+
+          // 4. when the the event occurs, i.e. the pool button is clicked:
+          //    4.1. request the ride data from our "API" from https://kiei451.com/api/rides.json 
+          let url = 'https://kiei451.com/api/rides.json'
+          let response = await fetch(url)
+          let json = await response.json()
+      
+          //    4.2. create a new empty pool array 
+          var poolArray = []
+          //    4.3. loop through the rides  
+          for (let i = 0; i < json.length; i++) {
+            let ride = json[i] 
+            let pool = levelOfService(ride)
+                if(pool=="Noober Pool"){
+                poolArray.push(ride)
+                // 4.4. lastly, pass the pool array of filtered rides to the renderRides() function 
+                renderRides(poolArray)
+                }
+          }
+     })  
+
+
+
+    // 6.Listener "Noober XL" button
+    let XLButton = document.querySelector('#noober-xl-filter')
+    XLButton.addEventListener('click', async function(event) {
+      event.preventDefault() 
+      console.log('XLButton was clicked')
+
+          let filterReset = document.querySelector('.rides').innerHTML = ''
+
+          let url = 'https://kiei451.com/api/rides.json'
+          let response = await fetch(url)
+          let json = await response.json()
+      
+          var XLArray = []
+
+          for (let i = 0; i < json.length; i++) {
+            let ride = json[i] 
+            let XL = levelOfService(ride)
+                if(XL=="Noober XL"){
+                XLArray.push(ride)
+                renderRides(XLArray)
+                }
+          }
+     })  
+
     
-    //    4.2. create a new empty array 
-    var newArray = []
-
-    //    4.3. loop through the rides and for each ride, use the provided levelOfService() function to determine the service level, and use newArray.push(ride) to add "Noober Purple" rides into the new array 
-    
-    for (let i = 0; i < json.length; i++) {
-      let ride = json[i] 
-      levelOfService(ride)
-      newArray.push(ride)
-      // console.log(ride)
-
-    //    4.4. lastly, pass the new array of filtered rides to the renderRides() function 
-      renderRides(newArray)
 
 
-    }
-    // 5. Repeat steps 3 & 4 for the other 3 level of service button filters
+     // 6.Listener "Noober X" button
+    let xButton = document.querySelector('#noober-x-filter')
+    xButton.addEventListener('click', async function(event) {
+      event.preventDefault() 
+      console.log('xButton was clicked')
 
-    })
-  
+          let filterReset = document.querySelector('.rides').innerHTML = ''
+
+          let url = 'https://kiei451.com/api/rides.json'
+          let response = await fetch(url)
+          let json = await response.json()
+      
+          var xArray = []
+
+          for (let i = 0; i < json.length; i++) {
+            let ride = json[i] 
+            let x = levelOfService(ride)
+                if(x=="Noober X"){
+                xArray.push(ride)
+ 
+                renderRides(xArray)
+                }
+          }
+     })  
+
 
 })
